@@ -2,7 +2,7 @@ from skimage.io import imread
 from skimage.filters import threshold_otsu
 import matplotlib.pyplot as plt
 
-filename = './video15.mp4'
+filename = './examples/screenshot_56.png'
 
 import cv2
 cap = cv2.VideoCapture(filename)

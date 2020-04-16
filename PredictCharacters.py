@@ -1,7 +1,7 @@
 import SegmentCharacters
 import pickle
 print("Loading model")
-filename = '../../../Users/king0/Downloads/LicensePlateDetector/finalized_model.sav'
+filename = './finalized_model.sav'
 model = pickle.load(open(filename, 'rb'))
 
 print('Model loaded. Predicting characters of number plate')
