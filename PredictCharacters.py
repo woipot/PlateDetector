@@ -6,13 +6,12 @@ from SegmentCharacters import CharacterSegmentator
 class CharacterPredicter:
 
     @staticmethod
-    def predict(path):
+    def predict(path, mode_path):
         segmentor = CharacterSegmentator()
         segmentor.segment_chars(path)
 
         print("Loading model")
-        filename = './finalized_model.sav'
-        model = pickle.load(open(filename, 'rb'))
+        model = pickle.load(open(mode_path, 'rb'))
 
         print('Model loaded. Predicting characters of number plate')
         classification_result = []
@@ -47,4 +46,9 @@ class CharacterPredicter:
 
 
 if __name__ == '__main__':
-    CharacterPredicter.predict("./examples/screenshot_56.png")
+    CharacterPredicter.predict("./examples/screenshot_56.png", './finalized_model.sav')
+    CharacterPredicter.predict("./examples/screenshot_55.png", './finalized_model.sav')
+    CharacterPredicter.predict("./examples/screenshot_52.png", './finalized_model.sav')
+    CharacterPredicter.predict("./examples/screenshot_51.png", './finalized_model.sav')
+    CharacterPredicter.predict("./examples/screenshot_49.png", './finalized_model.sav')
+    CharacterPredicter.predict("./examples/screenshot_47.png", './finalized_model.sav')

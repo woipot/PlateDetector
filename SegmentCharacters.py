@@ -1,15 +1,14 @@
-import numpy as np
-from skimage.transform import resize
-from skimage import measure
-from skimage.measure import regionprops
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
+import numpy as np
+from skimage import measure
+from skimage.measure import regionprops
+from skimage.transform import resize
 
 from DetectPlate import PlateDetector
 
 
 class CharacterSegmentator:
-
     characters = []
     column_list = []
 
@@ -24,6 +23,9 @@ class CharacterSegmentator:
         plateDetector = PlateDetector()
         plateDetector.find_plate(filename)
 
+        if len(plateDetector.get_found_plates()) == 0:
+            return
+
         # The invert was done so as to convert the black pixel to white pixel and vice versa
         license_plate = np.invert(plateDetector.get_found_plates()[0])
 
@@ -36,8 +38,8 @@ class CharacterSegmentator:
         # and height should be between 35% and 60%
         # this will eliminate some
         character_dimensions = (
-        0.35 * license_plate.shape[0], 0.60 * license_plate.shape[0], 0.03 * license_plate.shape[1],
-        0.10 * license_plate.shape[1])
+            0.35 * license_plate.shape[0], 0.60 * license_plate.shape[0], 0.03 * license_plate.shape[1],
+            0.10 * license_plate.shape[1])
         min_height, max_height, min_width, max_width = character_dimensions
 
         counter = 0

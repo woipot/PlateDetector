@@ -97,7 +97,7 @@ class PlateDetector:
             if region_height >= min_height and region_height <= max_height and region_width >= min_width and region_width <= max_width and region_width > region_height:
                 flag = 1
                 self.plate_like_objects.append(binary_car_image[min_row:max_row,
-                                          min_col:max_col])
+                                               min_col:max_col])
                 plate_objects_cordinates.append((min_row, min_col,
                                                  max_row, max_col))
                 rectBorder = patches.Rectangle((min_col, min_row), max_col - min_col, max_row - min_row,
@@ -139,7 +139,7 @@ class PlateDetector:
                 if region_height >= min_height and region_height <= max_height and region_width >= min_width and region_width <= max_width and region_width > region_height:
                     # print("hello")
                     self.plate_like_objects.append(binary_car_image[min_row:max_row,
-                                              min_col:max_col])
+                                                   min_col:max_col])
                     plate_objects_cordinates.append((min_row, min_col,
                                                      max_row, max_col))
                     rectBorder = patches.Rectangle((min_col, min_row), max_col - min_col, max_row - min_row,
@@ -147,6 +147,10 @@ class PlateDetector:
                                                    linewidth=2, fill=False)
                     ax1.add_patch(rectBorder)
                     # let's draw a red rectangle over those regions
-            print(self.plate_like_objects[0])
+            if len(self.plate_like_objects) > 0:
+                print(self.plate_like_objects[0])
+            else:
+                print("Plate Not Found")
+
             plt.show()
         # plt.savefig("output.png")
