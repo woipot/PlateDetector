@@ -1,4 +1,5 @@
 import pickle
+from datetime import datetime
 
 from SegmentCharacters import CharacterSegmentator
 
@@ -8,8 +9,9 @@ class CharacterPredicter:
     @staticmethod
     def predict(path, model_path):
 
-        print("===========================================")
-        print("--------------> start for %s" % path)
+        print("\n================================================")
+        print("========> start for %s" % path)
+        print("================================================")
         try:
             model = pickle.load(open(model_path, 'rb'))
         except FileNotFoundError:
@@ -20,7 +22,7 @@ class CharacterPredicter:
         characters_list, columns_list = segmentor.segment_chars(path)
 
         counter = 0
-        result_count = 0
+        results = []
         for characters in characters_list:
 
             classification_result = []
@@ -46,12 +48,25 @@ class CharacterPredicter:
                 rightplate_string += plate_string[column_list_copy.index(each)]
 
             if rightplate_string or plate_string:
-                print("--------------#%d" % (counter + 1))
+                print("------#%d" % (counter + 1))
                 print('Predicted license plate : %s' % plate_string)
                 print('License plate : %s' % rightplate_string)
-                result_count += 1
+                results.append(rightplate_string)
             counter += 1
 
-        if result_count == 0 :
+        if len(results) == 0:
             print('WARNING: Can not recognize characters in plate')
+            CharacterPredicter.print_to_file(None)
+        else:
+            CharacterPredicter.print_to_file(results)
 
+    @staticmethod
+    def print_to_file(detected_plates):
+        f = open("log.txt", "a+")
+
+        if detected_plates is not None:
+            f.write("%s:  %s\r\n" % (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), detected_plates))
+        else:
+            f.write("%s:  %s\r\n" % (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "Not Detected"))
+
+        f.close()

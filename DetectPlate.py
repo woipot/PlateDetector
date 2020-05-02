@@ -150,7 +150,7 @@ class PlateDetector:
                     ax1.add_patch(rectBorder)
                     # let's draw a red rectangle over those regions
             if len(self.plate_like_objects) > 0:
-                print(self.plate_like_objects[0])
+                print("Amount of detected plates (Second method) : %d" % len(self.plate_like_objects))
             else:
                 print("Plate Not Found")
 
