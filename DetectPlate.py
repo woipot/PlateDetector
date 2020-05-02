@@ -1,4 +1,5 @@
 import cv2
+import imutils
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 from skimage import measure
@@ -34,7 +35,8 @@ class PlateDetector:
 
         # car image -> grayscale image -> binary image
         car_image = imread("./output/frame%d.jpg" % (count - 1), as_gray=True)
-        # car_image = imutils.rotate(car_image, 270)
+
+        #car_image = imutils.rotate(car_image, 270)
 
         # car_image = imread("car.png", as_gray=True)
         # it should be a 2 dimensional array
@@ -106,7 +108,7 @@ class PlateDetector:
                 ax1.add_patch(rectBorder)
                 # let's draw a red rectangle over those regions
         if (flag == 1):
-            print(self.plate_like_objects[0])
+            print("Amount of detected plates : %d" % len(self.plate_like_objects))
             plt.show()
             # plt.savefig("output.png")
 

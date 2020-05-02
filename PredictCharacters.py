@@ -6,14 +6,19 @@ from SegmentCharacters import CharacterSegmentator
 class CharacterPredicter:
 
     @staticmethod
-    def predict(path, mode_path):
+    def predict(path, model_path):
+
+        print("===========================================")
+        print("--------------> start for %s" % path)
+        try:
+            model = pickle.load(open(model_path, 'rb'))
+        except FileNotFoundError:
+            print("ERROR: Wrong path to model (%s)" % model_path)
+            return
+
         segmentor = CharacterSegmentator()
         segmentor.segment_chars(path)
 
-        print("Loading model")
-        model = pickle.load(open(mode_path, 'rb'))
-
-        print('Model loaded. Predicting characters of number plate')
         classification_result = []
         for each_character in segmentor.get_chars():
             # converts it to a 1D array
@@ -43,12 +48,3 @@ class CharacterPredicter:
 
         print('License plate')
         print(rightplate_string)
-
-
-if __name__ == '__main__':
-    CharacterPredicter.predict("./examples/screenshot_56.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_55.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_52.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_51.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_49.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_47.png", './finalized_model.sav')

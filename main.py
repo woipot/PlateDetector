@@ -1,10 +1,4 @@
-
-
-def main():
-
-    print('hey')
-
+from PredictCharacters import CharacterPredicter
 
 if __name__ == "__main__":
-
-    main()
+    CharacterPredicter.predict("./examples/photo_2020-04-16_20-04-20.jpg", './finalized_model.sav')

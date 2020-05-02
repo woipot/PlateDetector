@@ -26,6 +26,7 @@ class CharacterSegmentator:
         if len(plateDetector.get_found_plates()) == 0:
             return
 
+
         # The invert was done so as to convert the black pixel to white pixel and vice versa
         license_plate = np.invert(plateDetector.get_found_plates()[0])
 
