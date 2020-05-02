@@ -22,7 +22,7 @@ class CharacterSegmentator:
             characters = []
             column = []
             # The invert wasdone so as to convert the black pixel to white pixel and vice versa
-            license_plate = np.invert(plate_detector.get_found_plates()[0])
+            license_plate = np.invert(plate)
 
             labelled_plate = measure.label(license_plate)
 

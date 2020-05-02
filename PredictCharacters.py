@@ -20,8 +20,8 @@ class CharacterPredicter:
         characters_list, columns_list = segmentor.segment_chars(path)
 
         counter = 0
+        result_count = 0
         for characters in characters_list:
-            print("--------------#%d" % (counter + 1))
 
             classification_result = []
             for each_character in characters:
@@ -34,7 +34,6 @@ class CharacterPredicter:
             for eachPredict in classification_result:
                 plate_string += eachPredict[0]
 
-            print('Predicted license plate : %s' % plate_string)
 
             # it's possible the characters are wrongly arranged
             # since that's a possibility, the column_list will be
@@ -46,5 +45,13 @@ class CharacterPredicter:
             for each in columns_list[counter]:
                 rightplate_string += plate_string[column_list_copy.index(each)]
 
-            print('License plate : %s' % rightplate_string)
+            if rightplate_string or plate_string:
+                print("--------------#%d" % (counter + 1))
+                print('Predicted license plate : %s' % plate_string)
+                print('License plate : %s' % rightplate_string)
+                result_count += 1
             counter += 1
+
+        if result_count == 0 :
+            print('WARNING: Can not recognize characters in plate')
+
