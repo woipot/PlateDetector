@@ -17,34 +17,34 @@ class CharacterPredicter:
             return
 
         segmentor = CharacterSegmentator()
-        segmentor.segment_chars(path)
+        characters_list, columns_list = segmentor.segment_chars(path)
 
-        classification_result = []
-        for each_character in segmentor.get_chars():
-            # converts it to a 1D array
-            each_character = each_character.reshape(1, -1);
-            result = model.predict(each_character)
-            classification_result.append(result)
+        counter = 0
+        for characters in characters_list:
+            print("--------------#%d" % (counter + 1))
 
-        print('Classification result')
-        print(classification_result)
+            classification_result = []
+            for each_character in characters:
+                # converts it to a 1D array
+                each_character = each_character.reshape(1, -1)
+                result = model.predict(each_character)
+                classification_result.append(result)
 
-        plate_string = ''
-        for eachPredict in classification_result:
-            plate_string += eachPredict[0]
+            plate_string = ''
+            for eachPredict in classification_result:
+                plate_string += eachPredict[0]
 
-        print('Predicted license plate')
-        print(plate_string)
+            print('Predicted license plate : %s' % plate_string)
 
-        # it's possible the characters are wrongly arranged
-        # since that's a possibility, the column_list will be
-        # used to sort the letters in the right order
+            # it's possible the characters are wrongly arranged
+            # since that's a possibility, the column_list will be
+            # used to sort the letters in the right order
 
-        column_list_copy = segmentor.get_column_list()[:]
-        segmentor.get_column_list().sort()
-        rightplate_string = ''
-        for each in segmentor.get_column_list():
-            rightplate_string += plate_string[column_list_copy.index(each)]
+            column_list_copy = columns_list[counter][:]
+            columns_list[counter].sort()
+            rightplate_string = ''
+            for each in columns_list[counter]:
+                rightplate_string += plate_string[column_list_copy.index(each)]
 
-        print('License plate')
-        print(rightplate_string)
+            print('License plate : %s' % rightplate_string)
+            counter += 1
