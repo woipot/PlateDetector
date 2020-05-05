@@ -1,7 +1,6 @@
 .vscode
 venv
 
-./src/plate_detector/lapi.weights
 .idea/PlateDetector.iml
 .idea/inspectionProfiles/
 .idea/misc.xml
@@ -10,8 +9,9 @@ venv
 __pycache__/
 output/
 log.txt
+dataset/
 src/__pycache__/
 src/plate_detector/__pycache__/
 src/plate_detector/lapi.weights
 train20X20/H/h_o1.jpg
-"train20X20/Y/\320\220\320\275\320\275\320\276\321\202\320\260\321\206\320\270\321\217 2020-05-02 165541.jpg"
+/dataset/
