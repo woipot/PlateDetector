@@ -61,6 +61,7 @@ print('reading data completed')
 # the probability was set to True so as to show
 # how sure the model is of it's prediction
 svc_model = LinearSVC()
+#svc_model = SVC(kernel='linear', probability=True)
 
 cross_validation(svc_model, 4, image_data, target_data)
 
