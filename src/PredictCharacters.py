@@ -1,7 +1,7 @@
 import pickle
 from datetime import datetime
 
-from SegmentCharacters import CharacterSegmentator
+from src.SegmentCharacters import CharacterSegmentator
 
 
 class CharacterPredicter:
@@ -19,7 +19,7 @@ class CharacterPredicter:
             return
 
         segmentor = CharacterSegmentator()
-        characters_list, columns_list = segmentor.segment_chars(path)
+        characters_list, columns_list, files = segmentor.segment_chars(path)
 
         counter = 0
         results = []
@@ -36,7 +36,6 @@ class CharacterPredicter:
             for eachPredict in classification_result:
                 plate_string += eachPredict[0]
 
-
             # it's possible the characters are wrongly arranged
             # since that's a possibility, the column_list will be
             # used to sort the letters in the right order
@@ -52,21 +51,23 @@ class CharacterPredicter:
                 print('Predicted license plate : %s' % plate_string)
                 print('License plate : %s' % rightplate_string)
                 results.append(rightplate_string)
-            counter += 1
 
         if len(results) == 0:
             print('WARNING: Can not recognize characters in plate')
-            CharacterPredicter.print_to_file(None)
+            CharacterPredicter.print_to_file(None, files)
         else:
-            CharacterPredicter.print_to_file(results)
+            CharacterPredicter.print_to_file(results, files)
 
     @staticmethod
-    def print_to_file(detected_plates):
+    def print_to_file(detected_plate, files=None):
         f = open("log.txt", "a+")
 
-        if detected_plates is not None:
-            f.write("%s:  %s\r\n" % (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), detected_plates))
+        if detected_plate is not None:
+            f.write("%s:  %s -> %s\r\n" % (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), detected_plate, files))
         else:
-            f.write("%s:  %s\r\n" % (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "Not Detected"))
+            if files is None:
+                f.write("%s:  %s\r\n" % (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "Plate Not Detected"))
+            else:
+                f.write("%s:  Can not recognize characters -> %s\r\n" % (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), files))
 
         f.close()

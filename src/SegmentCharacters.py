@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
@@ -5,18 +7,19 @@ from skimage import measure
 from skimage.measure import regionprops
 from skimage.transform import resize
 
-from DetectPlate import PlateDetector
+from src.plate_detector.detecor import PlateDetector2
 
 
 class CharacterSegmentator:
 
     def segment_chars(self, filename):
 
-        plate_detector = PlateDetector()
-        plate_detector.find_plate(filename)
+        plate_detector = PlateDetector2()
+        plate_detector.detect(filename)
 
         characters_list = []
         column_list = []
+        image_outputs_list = []
 
         for plate in plate_detector.get_found_plates():
             characters = []
@@ -33,17 +36,16 @@ class CharacterSegmentator:
             # and height should be between 35% and 60%
             # this will eliminate some
             character_dimensions = (
-                0.35 * license_plate.shape[0], 0.60 * license_plate.shape[0], 0.03 * license_plate.shape[1],
-                0.10 * license_plate.shape[1])
+                0.3 * license_plate.shape[0], 0.90 * license_plate.shape[0], 0.035 * license_plate.shape[1],
+                0.14 * license_plate.shape[1])
             min_height, max_height, min_width, max_width = character_dimensions
 
-            counter = 0
             for regions in regionprops(labelled_plate):
                 y0, x0, y1, x1 = regions.bbox
                 region_height = y1 - y0
                 region_width = x1 - x0
 
-                if region_height > min_height and region_height < max_height and region_width > min_width and region_width < max_width:
+                if min_height < region_height < max_height and min_width < region_width < max_width:
                     roi = license_plate[y0:y1, x0:x1]
 
                     # draw a red bordered rectangle over the character.
@@ -52,7 +54,7 @@ class CharacterSegmentator:
                     ax1.add_patch(rect_border)
 
                     # resize the characters to 20X20 and then append each character into the characters list
-                    resized_char = resize(roi, (20, 20))
+                    resized_char = resize(roi, (20, 20), mode='constant', anti_aliasing=False)
                     characters.append(resized_char)
 
                     # this is just to keep track of the arrangement of the characters
@@ -60,6 +62,9 @@ class CharacterSegmentator:
             # print(characters)
             characters_list.append(characters)
             column_list.append(column)
+            output_file_name = "output/%s.jpg" % datetime.now().strftime("%Y_%m_%d %H_%M_%S")
+            image_outputs_list.append(output_file_name)
+            plt.savefig(output_file_name, cmap='gray')
             plt.show()
 
-        return characters_list, column_list
+        return characters_list, column_list, image_outputs_list

@@ -1,5 +1,4 @@
 import cv2
-import imutils
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 from skimage import measure
@@ -36,7 +35,7 @@ class PlateDetector:
         # car image -> grayscale image -> binary image
         car_image = imread("./output/frame%d.jpg" % (count - 1), as_gray=True)
 
-        #car_image = imutils.rotate(car_image, 270)
+        # car_image = imutils.rotate(car_image, 270)
 
         # car_image = imread("car.png", as_gray=True)
         # it should be a 2 dimensional array

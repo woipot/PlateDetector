@@ -1,13 +1,9 @@
-from PredictCharacters import CharacterPredicter
+from src.PredictCharacters import CharacterPredicter
+from src.plate_detector.detecor import PlateDetector2
 
 if __name__ == "__main__":
-    CharacterPredicter.predict("./examples/photo_2020-04-16_17-51-11.jpg", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/photo_2020-04-16_20-04-20.jpg", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/photo_2020-04-16_17-50-51.jpg", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_52.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_51.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_55.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_47.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_49.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_46.png", './finalized_model.sav')
-    CharacterPredicter.predict("./examples/screenshot_56.png", './finalized_model.sav')
+
+    #detector = PlateDetector2()
+    #detector.detect('./examples/tayota_1.jpg')
+
+    CharacterPredicter.predict("examples/two_cars.jpg", './finalized_model.sav')
