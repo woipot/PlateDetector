@@ -21,6 +21,7 @@ class CharacterSegmentator:
         column_list = []
         image_outputs_list = []
 
+        counter = 0
         for plate in plate_detector.get_found_plates():
             characters = []
             column = []
@@ -62,9 +63,12 @@ class CharacterSegmentator:
             # print(characters)
             characters_list.append(characters)
             column_list.append(column)
-            output_file_name = "output/%s.jpg" % datetime.now().strftime("%Y_%m_%d %H_%M_%S")
+            output_file_name = "output/%s" % datetime.now().strftime("%Y_%m_%d %H_%M_%S")
+            if counter != 0:
+                output_file_name += "_%d" % counter
             image_outputs_list.append(output_file_name)
-            plt.savefig(output_file_name, cmap='gray')
+            plt.savefig("%s.jpg" % output_file_name, cmap='gray')
             plt.show()
+            counter+=1
 
         return characters_list, column_list, image_outputs_list
