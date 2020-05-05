@@ -1,7 +1,7 @@
 # PlateDetector
 Car plate Detector based on opencv and neural tech
 
-App can recognize licence platess of cars 
+App can recognize licence plates of cars 
 to start you need download wights https://www.kaggle.com/achrafkhazri/yolo-weights-for-licence-plate-detector
 and move them to plate_detector folder
 
