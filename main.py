@@ -6,4 +6,4 @@ if __name__ == "__main__":
     #detector = PlateDetector2()
     #detector.detect('./examples/tayota_1.jpg')
 
-    CharacterPredicter.predict("examples/bmv_2.jpg", './finalized_model.sav')
+    CharacterPredicter.predict("examples/carsh_12.jpg", './finalized_model4.sav')

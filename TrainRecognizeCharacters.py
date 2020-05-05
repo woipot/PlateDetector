@@ -1,13 +1,13 @@
 import os
 import numpy as np
-from sklearn.svm import LinearSVC
+from sklearn.svm import SVC, LinearSVC
 from sklearn.model_selection import cross_val_score
 from sklearn.externals import joblib
 from skimage.io import imread
 from skimage.filters import threshold_otsu
 
 training_dataset_dir = 'dataset'
-filename = 'finalized_model2.sav'
+filename = 'finalized_model4.sav'
 
 letters = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D',
@@ -60,8 +60,8 @@ print('reading data completed')
 # the kernel can be 'linear', 'poly' or 'rbf'
 # the probability was set to True so as to show
 # how sure the model is of it's prediction
-svc_model = LinearSVC()
-#svc_model = SVC(kernel='linear', probability=True)
+# svc_model = LinearSVC()
+svc_model = SVC(kernel='linear', probability=True)
 
 cross_validation(svc_model, 4, image_data, target_data)
 
