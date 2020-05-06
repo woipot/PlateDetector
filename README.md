@@ -1,7 +1,16 @@
 # PlateDetector
 
-App to recognize cars licence plates
-Car plate Detector based on opencv and neural networks
+An app to recognize car licence plate and its content
+Characters recognition is based on opencv and LSVC(sklearn)
+
+
+# An example
+
+![Screenshot](readme_screenshot_0.png)
+
+![Screenshot](readme_screenshot_1.png)
+
+![Screenshot](readme_screenshot_2.png)
 
 
 # Setup
